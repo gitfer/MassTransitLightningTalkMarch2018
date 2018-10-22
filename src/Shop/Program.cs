@@ -29,10 +29,11 @@ namespace Shop
             Console.WriteLine("Welcome to the Shop");
             Console.WriteLine("Press Q key to exit");
             Console.WriteLine("Press [0..9] key to order some products");
-            Console.WriteLine(string.Join(Environment.NewLine, Products.Select((x,i)=> $"[{i}]: {x.name} @ {x.price:C}")));
+            Console.WriteLine("Press enter to submit order");
+            Console.WriteLine(string.Join(Environment.NewLine, Products.Select((x, i) => $"[{i}]: {x.name} @ {x.price:C}")));
 
             var products = new List<(string name, decimal price)>();
-            for (;;)
+            for (; ; )
             {
                 var consoleKeyInfo = Console.ReadKey(true);
                 if (consoleKeyInfo.Key == ConsoleKey.Q)
@@ -53,7 +54,7 @@ namespace Shop
                 {
                     bus.Publish<IOrderRequested>(new
                     {
-                        Products = products.Select(x => new {Name = x.name, Price = x.price}).ToList()
+                        Products = products.Select(x => new { Name = x.name, Price = x.price }).ToList()
                     });
 
                     Console.WriteLine("Submitted Order");
